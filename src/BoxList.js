@@ -2,22 +2,37 @@ import React, { useState } from "react";
 import Box from "./Box";
 import NewBoxForm from "./NewBoxForm";
 import "./BoxList.css";
-import { v4 as uuid } from "uuid";
 
 
 function BoxList() {
     const [boxes, setBoxes] = useState([]);
 
     /** Add new box */
-    const addBox = ({width, height, backgroundColor}) => {
-        let newBox = <Box key={uuid} width={width} height={height} backgroundColor={backgroundColor}/>;
-        setBoxes(boxes => [...boxes, newBox]);
+    const addBox = box => {
+        setBoxes(boxes => [...boxes, box]);
+    };
+    
+    
+    /** Remove box */
+    const removeBox = id => {
+        setBoxes(boxes => boxes.filter(box => box.id !== id));
     };
 
+    const allBoxes = boxes.map(b =>
+        <Box 
+        key={b.id} 
+        id={b.id} 
+        width={b.width} 
+        height={b.height} 
+        backgroundColor={b.backgroundColor} 
+        removeBox={removeBox}
+        />
+    );
+    
     return (
         <div className="BoxList">
             <NewBoxForm addBox={addBox} />
-            <div className="BoxList-Container">{boxes}</div>
+            <div className="BoxList-Container">{allBoxes}</div>
         </div>
     );
 };

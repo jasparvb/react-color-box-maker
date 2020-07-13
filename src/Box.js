@@ -1,11 +1,11 @@
 import React from "react";
 import "./Box.css";
 
-function Box({backgroundColor, width, height}) {
+function Box({id, backgroundColor, width, height, removeBox}) {
     return (
         <div className="Box">
             <div className="Box-Color" style={{ backgroundColor, width, height }}></div>
-            <button className="Box-Btn">X</button>
+            <button onClick={() => removeBox(id)} className="Box-Btn">X</button>
         </div>
     );
 }
